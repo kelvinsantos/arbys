@@ -9,6 +9,11 @@ module.exports = {
 
     app.use('/src', publicPath)
     app.get('/', function (_, res) { res.sendFile(indexPath) })
+    app.get('*.js', function (req, res, next) {
+	  req.url = req.url + '.gz';
+	  res.set('Content-Encoding', 'gzip');
+	  next();
+	});
 
     return app
   }
